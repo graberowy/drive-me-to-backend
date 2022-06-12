@@ -1,3 +1,15 @@
+CREATE TABLE IF NOT EXISTS app_users (
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    user_login VARCHAR(20) NOT NULL,
+    user_password VARCHAR(20) NOT NULL,
+    UNIQUE(user_login)
+);
+CREATE TABLE IF NOT EXISTS app_user_roles (
+    app_user_id INTEGER,
+    roles ENUM('CUSTOMER', 'EMPLOYEE', 'COMMERCIAL_USER'),
+    FOREIGN KEY (app_user_id) REFERENCES app_users(id),
+    CONSTRAINT fk_app_user_id_roles PRIMARY KEY(app_user_id, roles)
+);
 CREATE TABLE IF NOT EXISTS passengers (
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,

@@ -1,3 +1,7 @@
+INSERT INTO app_users (user_login, user_password) VALUES ('Pawel123', '12345');
+
+INSERT INTO app_user_roles (app_user_id, roles) VALUES (1, 'CUSTOMER');
+
 INSERT INTO passengers (name, mobile) VALUES ('Adam Kowalski', '111222333');
 
 INSERT INTO cars (price_per_km, currency, make, status) VALUES (1.7, 'PLN', 'BMW', 'READY_TO_GO');
