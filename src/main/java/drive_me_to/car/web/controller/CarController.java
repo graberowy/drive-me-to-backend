@@ -5,11 +5,9 @@ import drive_me_to.car.service.CarServiceBasic;
 import drive_me_to.car.web.resources.CarDTO;
 import drive_me_to.car.web.resources.CarMapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/cars")
 public class CarController {

@@ -4,6 +4,7 @@ import drive_me_to.data.Data;
 import drive_me_to.data.enums.RoleType;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -15,6 +16,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@ToString
 @Table(name = "app_users")
 public class AppUser extends Data<Long> {
     @NotNull
@@ -28,7 +30,7 @@ public class AppUser extends Data<Long> {
     @NotNull
     @NotEmpty
     @Enumerated(EnumType.STRING)
-    @ElementCollection(targetClass = RoleType.class)
+    @ElementCollection(targetClass = RoleType.class, fetch = FetchType.EAGER)
     private Set<RoleType> roles = new HashSet<>();
 
 }

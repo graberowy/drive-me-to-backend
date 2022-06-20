@@ -1,4 +1,4 @@
-INSERT INTO app_users (user_login, user_password) VALUES ('Pawel123', '12345');
+INSERT INTO app_users (user_login, user_password) VALUES ('Pawel123', '$2a$10$dPecObzTTTtrvFg5w.jWUO1.onJvyvSOBRHh66Uf2C4XI7yMjN1E6');
 
 INSERT INTO app_user_roles (app_user_id, roles) VALUES (1, 'CUSTOMER');
 

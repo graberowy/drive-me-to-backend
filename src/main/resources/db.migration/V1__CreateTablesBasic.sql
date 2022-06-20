@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS app_users (
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_login VARCHAR(20) NOT NULL,
-    user_password VARCHAR(20) NOT NULL,
+    user_password VARCHAR(255) NOT NULL,
     UNIQUE(user_login)
 );
 CREATE TABLE IF NOT EXISTS app_user_roles (
