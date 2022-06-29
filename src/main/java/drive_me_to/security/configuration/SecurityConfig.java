@@ -35,7 +35,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers("/api/v1/login/**", "/api/v1/users/token/refresh/**").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/passengers/**").hasAnyAuthority("CUSTOMER");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/passengers/**").hasAnyAuthority("CUSTOMER", "COMMERCIAL_USER");
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/passengers/**").hasAnyAuthority("CUSTOMER", "COMMERCIAL_USER");
+        http.authorizeRequests().antMatchers(HttpMethod.PATCH, "/api/v1/passengers/**").hasAnyAuthority("CUSTOMER", "COMMERCIAL_USER");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/trips/**").hasAnyAuthority("CUSTOMER", "COMMERCIAL_USER", "EMPLOYEE");
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/trips/**").hasAnyAuthority("CUSTOMER", "COMMERCIAL_USER");
+        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/v1/trips/**").hasAnyAuthority("CUSTOMER");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
