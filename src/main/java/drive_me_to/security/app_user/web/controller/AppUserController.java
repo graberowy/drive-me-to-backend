@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import drive_me_to.data.enums.RoleType;
 import drive_me_to.security.app_user.repository.AppUser;
 import drive_me_to.security.app_user.service.AppUserServiceBasic;
 import drive_me_to.security.app_user.web.resources.AppUserDTO;
@@ -25,7 +26,7 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v1")
 public class AppUserController {
 
     private final AppUserServiceBasic appUserServiceBasic;
@@ -36,20 +37,27 @@ public class AppUserController {
         this.appUserMapper = appUserMapper;
     }
 
-    @PostMapping
+    @PostMapping("/users")
     public ResponseEntity<AppUserDTO> saveNew(@RequestBody AppUserDTO appUserDTO) {
         AppUser appUser = appUserMapper.mapToAppUser(appUserDTO);
         return ResponseEntity.ok(appUserMapper.mapToAppUserDTO(appUserServiceBasic.save(appUser)));
     }
 
-    @GetMapping
+    @PostMapping("/customer/new")
+    public ResponseEntity<AppUserDTO> saveNewCustomer(@RequestBody AppUserDTO appUserDTO) {
+        appUserDTO.setRoles(Set.of(RoleType.CUSTOMER));
+        AppUser appUser = appUserMapper.mapToAppUser(appUserDTO);
+        return ResponseEntity.ok(appUserMapper.mapToAppUserDTO(appUserServiceBasic.save(appUser)));
+    }
+
+    @GetMapping("/users")
     public ResponseEntity<List<AppUserDTO>> getAll() {
         return ResponseEntity.ok(appUserServiceBasic.findAll().stream()
                 .map(appUserMapper::mapToAppUserDTO)
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping("/{userLogin}")
+    @GetMapping("/users/{userLogin}")
     public ResponseEntity<AppUserDTO> findAppUserByLogin(@PathVariable String userLogin) {
         return appUserServiceBasic.findByUserLogin(userLogin)
                 .map(appUserMapper::mapToAppUserDTO)
