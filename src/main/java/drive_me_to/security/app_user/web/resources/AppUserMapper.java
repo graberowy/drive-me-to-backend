@@ -18,6 +18,8 @@ public interface AppUserMapper {
     AppUserDTO mapToAppUserDTOBasic(AppUser appUser);
 
     @Mapping(source = "id", target = "id")
+    @Mapping(source = "name", target = "name")
+    @Mapping(source = "mobile", target = "mobile")
     @BeanMapping(ignoreByDefault = true)
     PassengerDTO mapToPassengerDTO(Passenger passenger);
 
