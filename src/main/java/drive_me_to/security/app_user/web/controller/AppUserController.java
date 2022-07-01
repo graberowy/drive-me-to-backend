@@ -10,6 +10,7 @@ import drive_me_to.security.app_user.repository.AppUser;
 import drive_me_to.security.app_user.service.AppUserServiceBasic;
 import drive_me_to.security.app_user.web.resources.AppUserDTO;
 import drive_me_to.security.app_user.web.resources.AppUserMapper;
+import drive_me_to.security.app_user.web.resources.AppUserMapperDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +32,12 @@ public class AppUserController {
 
     private final AppUserServiceBasic appUserServiceBasic;
     private final AppUserMapper appUserMapper;
+    private final AppUserMapperDetails appUserMapperDetails;
 
-    public AppUserController(AppUserServiceBasic appUserServiceBasic, AppUserMapper appUserMapper) {
+    public AppUserController(AppUserServiceBasic appUserServiceBasic, AppUserMapper appUserMapper, AppUserMapperDetails appUserMapperDetails) {
         this.appUserServiceBasic = appUserServiceBasic;
         this.appUserMapper = appUserMapper;
+        this.appUserMapperDetails = appUserMapperDetails;
     }
 
     @PostMapping("/users")
@@ -46,8 +49,8 @@ public class AppUserController {
     @PostMapping("/customer/new")
     public ResponseEntity<AppUserDTO> saveNewCustomer(@RequestBody AppUserDTO appUserDTO) {
         appUserDTO.setRoles(Set.of(RoleType.CUSTOMER));
-        AppUser appUser = appUserMapper.mapToAppUser(appUserDTO);
-        return ResponseEntity.ok(appUserMapper.mapToAppUserDTO(appUserServiceBasic.save(appUser)));
+        AppUser appUser = appUserMapperDetails.mapToAppUserDetails(appUserDTO);
+        return ResponseEntity.ok(appUserMapperDetails.mapToAppUserDTODetails(appUserServiceBasic.save(appUser)));
     }
 
     @GetMapping("/users")
@@ -60,7 +63,7 @@ public class AppUserController {
     @GetMapping("/users/{userLogin}")
     public ResponseEntity<AppUserDTO> findAppUserByLogin(@PathVariable String userLogin) {
         return appUserServiceBasic.findByUserLogin(userLogin)
-                .map(appUserMapper::mapToAppUserDTO)
+                .map(appUserMapper::mapToAppUserDTOBasic)
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

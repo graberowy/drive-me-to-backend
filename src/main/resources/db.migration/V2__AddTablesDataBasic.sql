@@ -1,8 +1,8 @@
-INSERT INTO app_users (user_login, user_password) VALUES ('Pawel123', '$2a$10$dPecObzTTTtrvFg5w.jWUO1.onJvyvSOBRHh66Uf2C4XI7yMjN1E6');
+INSERT INTO passengers (name, mobile) VALUES ('Adam Kowalski', '111222333');
+
+INSERT INTO app_users (user_login, user_password, passenger_id) VALUES ('Pawel123', '$2a$10$dPecObzTTTtrvFg5w.jWUO1.onJvyvSOBRHh66Uf2C4XI7yMjN1E6', 1);
 
 INSERT INTO app_user_roles (app_user_id, roles) VALUES (1, 'CUSTOMER');
-
-INSERT INTO passengers (name, mobile) VALUES ('Adam Kowalski', '111222333');
 
 INSERT INTO cars (price_per_km, currency, make, status) VALUES (1.7, 'PLN', 'BMW', 'READY_TO_GO');
 INSERT INTO cars (price_per_km, currency, make, status) VALUES (2.7, 'PLN', 'MERCEDES', 'READY_TO_GO');

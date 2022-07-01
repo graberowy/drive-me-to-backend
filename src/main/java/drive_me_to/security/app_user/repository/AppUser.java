@@ -2,6 +2,7 @@ package drive_me_to.security.app_user.repository;
 
 import drive_me_to.data.Data;
 import drive_me_to.data.enums.RoleType;
+import drive_me_to.passenger.repository.Passenger;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -32,5 +33,7 @@ public class AppUser extends Data<Long> {
     @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass = RoleType.class, fetch = FetchType.EAGER)
     private Set<RoleType> roles = new HashSet<>();
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Passenger passenger;
 
 }
